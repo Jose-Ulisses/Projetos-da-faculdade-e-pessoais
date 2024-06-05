@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "app"
+version = "0.1.0"
+description = ""
+authors = ["Rafael D'Addio <rafael_daddio@dynaccurate.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.109.0"
+sqlalchemy = {extras = ["asyncio"], version = "^2.0.25"}
+psycopg2-binary = "^2.9.9"
+uvicorn = "^0.27.0.post1"
+python-dotenv = "^1.0.1"
+asyncpg = "^0.29.0"
+pydantic = {extras = ["dotenv"], version = "^1.10.7"}
+azure_identity = "^1.15.0"
+azure_confidentialledger  = "^1.1.1"
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.8.0"
+aiosqlite = "^0.18.0"
+autopep8 = "^2.0.2"
+sqlalchemy-stubs = "^0.4"
+flake8 = "^7.0.0"
+autoflake = "^2.2.1"
+isort = "^5.13.2"
+black = "^24.1.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
