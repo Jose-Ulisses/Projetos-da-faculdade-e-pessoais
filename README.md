@@ -1,2 +1,3 @@
-Olá, me chamo José Ulisses e sou um estudante de computação pela PUC minas.
-Este é um repositório de projetos desenvolvidos na faculdade e também haverá projetos pessoais.
+## Olá, me chamo **José Ulisses** e sou um estudante de Ciência da Computação. <br>
+### Atualmente no 6° período pela PUC Minas na unidade de Poços de Caldas.
+### Este é um repositório parao desenvolvimento de projetos pessoais e acadêmicos.
