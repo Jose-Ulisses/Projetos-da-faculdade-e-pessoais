@@ -19,6 +19,11 @@
             android:parentActivityName=".Lavouras.LavourasActivity" />
 
         <activity
+            android:name=".Lavouras.InfoLavouraActivity"
+            android:exported="false"
+            android:parentActivityName=".Lavouras.TodasLavourasActivity" />
+
+        <activity
             android:name=".Lavouras.TodasLavourasActivity"
             android:exported="false"
             android:parentActivityName=".Lavouras.LavourasActivity" />

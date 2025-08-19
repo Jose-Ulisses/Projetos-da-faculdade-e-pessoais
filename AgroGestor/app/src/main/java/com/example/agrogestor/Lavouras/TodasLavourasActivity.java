@@ -1,7 +1,9 @@
 package com.example.agrogestor.Lavouras;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -10,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.agrogestor.Lavouras.LavourasDB.LavouraDB;
 import com.example.agrogestor.R;
+import com.example.agrogestor.Talhao.AddTalhaoActivity;
 
 public class TodasLavourasActivity extends AppCompatActivity {
     LavouraDB mLavouraDb;
@@ -37,6 +40,15 @@ public class TodasLavourasActivity extends AppCompatActivity {
                             ViewGroup.LayoutParams.WRAP_CONTENT,
                             ViewGroup.LayoutParams.WRAP_CONTENT
                     );
+
+                    mTextView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(TodasLavourasActivity.this, InfoLavouraActivity.class);
+                            intent.putExtra("nomeLavoura", nomeLavoura);
+                            startActivity(intent);
+                        }
+                    });
 
                     LinearLayout linearLayout = (LinearLayout) findViewById(R.id.layout_todas_lavouras);
                     linearLayout.addView(mTextView);

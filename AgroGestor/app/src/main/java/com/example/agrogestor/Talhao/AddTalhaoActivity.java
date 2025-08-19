@@ -84,14 +84,14 @@ public class AddTalhaoActivity extends AppCompatActivity {
                 inputPrecoTalhao = (EditText) findViewById(R.id.input_preco_talhao);
                 int precoTalhao = Integer.parseInt(inputPrecoTalhao.getText().toString());
 
-                adicionaTalhao(nomeTalhao, precoTalhao);
+                adicionaTalhao(nomeTalhao, precoTalhao, idLavoura);
                 finish();
             }
         });
     }
 
-    void adicionaTalhao(String nomeTalhao, int precoTalhao){
+    void adicionaTalhao(String nomeTalhao, int precoTalhao, int idLavoura){
         mTalhaoDb = new TalhaoDB(this);
-        mTalhaoDb.addTalhao(nomeTalhao, precoTalhao);
+        mTalhaoDb.addTalhao(nomeTalhao, precoTalhao, idLavoura);
     }
 }

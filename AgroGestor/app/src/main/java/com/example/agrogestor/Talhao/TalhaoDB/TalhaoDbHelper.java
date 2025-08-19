@@ -3,11 +3,10 @@ package com.example.agrogestor.Talhao.TalhaoDB;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import com.example.agrogestor.Lavouras.LavourasDB.LavourasDbSchema;
 
 public class TalhaoDbHelper extends SQLiteOpenHelper {
-    private static final int VERSAO = 1;
+    private static final int VERSAO = 4;
     private static final String NOME_DATABASE = "talhoesDB";
     public TalhaoDbHelper(Context context){
         super(context, NOME_DATABASE, null, VERSAO);
@@ -17,12 +16,12 @@ public class TalhaoDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TalhaoDbSchema.TalhoesTbl.NOME_TBL + "(" +
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                //TalhaoDbSchema.TalhoesTbl.Cols.ID_LAVOURA + " INTEGER, " +
+                TalhaoDbSchema.TalhoesTbl.Cols.ID_LAVOURA + " INTEGER, " +
                 TalhaoDbSchema.TalhoesTbl.Cols.NOME_TALHAO + " TEXT, " +
                 TalhaoDbSchema.TalhoesTbl.Cols.PRECO_TALHAO + " REAL, " +
-                TalhaoDbSchema.TalhoesTbl.Cols.TOTAL_TALHAO + " REAL " + ")"
-                //"FOREIGN KEY(" + TalhaoDbSchema.TalhoesTbl.Cols.ID_LAVOURA + ") " +
-                //"REFERENCES " + LavourasDbSchema.LavourasTbl.NOME_TBL + "(_id))"
+                TalhaoDbSchema.TalhoesTbl.Cols.TOTAL_TALHAO + " REAL, " +
+                "FOREIGN KEY(" + TalhaoDbSchema.TalhoesTbl.Cols.ID_LAVOURA + ") " +
+                "REFERENCES " + LavourasDbSchema.LavourasTbl.NOME_TBL + "(_id))"
         );
     }
 
@@ -33,13 +32,5 @@ public class TalhaoDbHelper extends SQLiteOpenHelper {
 
         db.execSQL("DROP TABLE IF EXISTS " + TalhaoDbSchema.TalhoesTbl.NOME_TBL);
         onCreate(db);
-    }
-
-    @Override
-    public void onConfigure(SQLiteDatabase db){
-        super.onConfigure(db);
-        if(!db.isReadOnly()) {
-            db.execSQL("PRAGMA foreign_keys=ON;");
-        }
     }
 }

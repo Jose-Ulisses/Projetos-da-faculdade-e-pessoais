@@ -15,7 +15,7 @@ public class LavourasDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db){
         db.execSQL("CREATE TABLE " + LavourasDbSchema.LavourasTbl.NOME_TBL + "(" +
-                "_id integer PRIMARY KEY autoincrement," +
+                "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 LavourasDbSchema.LavourasTbl.Cols.NOME_LAVOURA + "," +
                 LavourasDbSchema.LavourasTbl.Cols.TOTAL_LAVOURA + ")"
         );
