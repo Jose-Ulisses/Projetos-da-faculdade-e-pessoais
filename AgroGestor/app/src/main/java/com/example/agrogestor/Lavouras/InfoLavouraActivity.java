@@ -5,18 +5,15 @@ import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.agrogestor.Lavouras.LavourasDB.LavouraDB;
 import com.example.agrogestor.R;
 import com.example.agrogestor.Talhao.TalhaoDB.TalhaoDB;
 import com.example.agrogestor.Talhao.TalhaoDB.TalhaoDbSchema;
 
 public class InfoLavouraActivity extends AppCompatActivity {
-
     LavouraDB mLavouraDb;
-    TalhaoDB mTalhhaoDb;
+    TalhaoDB mTalhaoDb;
     private TextView mTextView, mTextViewLavoura;
     int idLavoura;
 
@@ -44,16 +41,14 @@ public class InfoLavouraActivity extends AppCompatActivity {
             }
         }
 
-        mTalhhaoDb = new TalhaoDB(getBaseContext());
-        Cursor cursorId = mTalhhaoDb.queryTalhao((String) null, (String[]) null);
+        mTalhaoDb = new TalhaoDB(getBaseContext());
+        Cursor cursorId = mTalhaoDb.queryTalhao((String) null, (String[]) null);
         if(cursorId != null){
             try{
                 cursorId.moveToFirst();
                 while(!cursorId.isAfterLast()){
                     int idLavouraTalhao = cursorId.getInt(cursorId.getColumnIndexOrThrow(TalhaoDbSchema.TalhoesTbl.Cols.ID_LAVOURA));
-                    System.out.println("passou!");
                     if(idLavouraTalhao == idLavoura){
-                        System.out.println("teste");
                         String nomeTalhao = cursorId.getString(cursorId.getColumnIndexOrThrow(TalhaoDbSchema.TalhoesTbl.Cols.NOME_TALHAO));
                         double totalTalhao = cursorId.getInt(cursorId.getColumnIndexOrThrow(TalhaoDbSchema.TalhoesTbl.Cols.TOTAL_TALHAO));
 

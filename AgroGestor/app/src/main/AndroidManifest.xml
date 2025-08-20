@@ -14,6 +14,26 @@
         tools:targetApi="31" >
 
         <activity
+            android:name=".Panhadores.InfoPanhadorActivity"
+            android:exported="false"
+            android:parentActivityName=".Panhadores.TodosPanhadoresActivity" />
+
+        <activity
+            android:name=".Panhadores.TodosPanhadoresActivity"
+            android:exported="false"
+            android:parentActivityName=".Panhadores.PanhadoresActivity" />
+
+        <activity
+            android:name=".Panhadores.AddPanhadorActivity"
+            android:exported="false"
+            android:parentActivityName=".Panhadores.PanhadoresActivity" />
+
+        <activity
+            android:name=".Panhadores.PanhadoresActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
             android:name=".Talhao.AddTalhaoActivity"
             android:exported="false"
             android:parentActivityName=".Lavouras.LavourasActivity" />

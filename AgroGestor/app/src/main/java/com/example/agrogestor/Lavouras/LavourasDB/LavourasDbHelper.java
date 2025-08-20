@@ -25,8 +25,5 @@ public class LavourasDbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int versaoAntiga, int novaVersao) {
         db.execSQL("DROP TABLE IF EXISTS " + LavourasDbSchema.LavourasTbl.NOME_TBL);
         onCreate(db);
-
-        db.execSQL("DROP TABLE IF EXISTS " + LavourasDbSchema.LavourasTbl.NOME_TBL);
-        onCreate(db);
     }
 }

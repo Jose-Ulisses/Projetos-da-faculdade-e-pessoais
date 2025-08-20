@@ -9,12 +9,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.agrogestor.Lavouras.LavourasDB.LavouraDB;
-import com.example.agrogestor.Lavouras.LavourasDB.LavourasDbHelper;
 import com.example.agrogestor.R;
 import com.example.agrogestor.Talhao.TalhaoDB.TalhaoDB;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,10 +47,10 @@ public class AddTalhaoActivity extends AppCompatActivity {
         }
 
         List<String> item = nomes;
+        adapterItems = new ArrayAdapter<>(this, R.layout.list_item, item);
+        autoCompleteTextView.setAdapter(adapterItems);
 
         //query lavoura id
-        adapterItems = new ArrayAdapter<>(this, R.layout.list_item_lavoura, item);
-        autoCompleteTextView.setAdapter(adapterItems);
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

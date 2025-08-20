@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.agrogestor.Colheita.ColheitaActivity;
 import com.example.agrogestor.Lavouras.LavourasActivity;
+import com.example.agrogestor.Panhadores.PanhadoresActivity;
 
 public class MainActivity extends AppCompatActivity {
     private Button mButtonColheita;
@@ -34,6 +35,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, LavourasActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mButtonPanhadores = (Button) findViewById(R.id.botao_panhadores);
+        mButtonPanhadores.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, PanhadoresActivity.class);
                 startActivity(intent);
             }
         });

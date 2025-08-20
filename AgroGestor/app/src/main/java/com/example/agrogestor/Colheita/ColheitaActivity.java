@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.agrogestor.R;
 
 public class ColheitaActivity extends AppCompatActivity {
-    public Button mButtonAddColheita;
+    public Button mButtonAdiconarColheita;
     public Button mButtonColheitasAnt;
 
     @Override
@@ -16,8 +16,8 @@ public class ColheitaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_colheita);
 
-        mButtonAddColheita = (Button) findViewById(R.id.botao_adicionar_colheita);
-        mButtonAddColheita.setOnClickListener(new View.OnClickListener() {
+        mButtonAdiconarColheita = (Button) findViewById(R.id.botao_adicionar_colheita);
+        mButtonAdiconarColheita.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ColheitaActivity.this, AdicionarColheitaActivity.class);

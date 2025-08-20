@@ -6,34 +6,33 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/botao_colheita"
+        android:id="@+id/botao_adicionar_panhador"
         android:layout_width="330dp"
         android:layout_height="80dp"
         android:layout_marginTop="100dp"
-        android:text="colheita"
+        android:text="adicionar panhador"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/botao_lavouras"
+        android:id="@+id/botao_todos_panhadores"
         android:layout_width="330dp"
         android:layout_height="80dp"
-        android:text="lavouras"
+        android:text="todos panhadores"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/botao_colheita" />
+        app:layout_constraintTop_toBottomOf="@id/botao_adicionar_panhador" />
 
     <Button
-        android:id="@+id/botao_panhadores"
+        android:id="@+id/botao_acerto"
         android:layout_width="330dp"
         android:layout_height="80dp"
-        android:text="panhadores"
+        android:text="acerto"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/botao_lavouras" />
+        app:layout_constraintTop_toBottomOf="@id/botao_todos_panhadores" />
 </androidx.constraintlayout.widget.ConstraintLayout>
