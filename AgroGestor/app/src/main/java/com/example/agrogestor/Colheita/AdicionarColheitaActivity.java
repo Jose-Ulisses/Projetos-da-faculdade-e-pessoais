@@ -6,22 +6,36 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.agrogestor.Colheita.ColheitaDB.ColheitaDB;
 import com.example.agrogestor.Lavouras.LavourasDB.LavouraDB;
 import com.example.agrogestor.Panhadores.PanhadorDB.PanhadorDB;
 import com.example.agrogestor.R;
 import com.example.agrogestor.Talhao.TalhaoDB.TalhaoDB;
 import com.example.agrogestor.Talhao.TalhaoDB.TalhaoDbSchema;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AdicionarColheitaActivity extends AppCompatActivity {
+    ColheitaDB mColheitaDb;
     AutoCompleteTextView AutoCompTextViewLavoura, autoCompTextViewTalhao, autCompTextViewPanhador;
     LavouraDB mLavouraDb;
     TalhaoDB mTalhaoDb;
     PanhadorDB mPanhadorDb;
     ArrayAdapter<String> adapterItems;
-    int idLavoura;
+    String nomeLavoura, nomeTalhao, nomePanhador;
+    int idLavoura, idTalhao, idPanhador;
+    private Button mBotaoAddColheita;
+    LocalDateTime dataHoraAtual;
+    DateTimeFormatter formatador;
+    EditText inputQntd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -51,20 +65,10 @@ public class AdicionarColheitaActivity extends AppCompatActivity {
         AutoCompTextViewLavoura.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String nomeLavoura = adapterView.getItemAtPosition(i).toString();
-
+                nomeLavoura = adapterView.getItemAtPosition(i).toString();
+                //get id lavoura
                 Cursor cursorId = mLavouraDb.queryIdLavoura(nomeLavoura);
-                if(cursorId != null){
-                    try{
-                        if(cursorId.moveToFirst()){
-                            int idColumnIndex = cursorId.getColumnIndex("_id");
-                            if(idColumnIndex != -1)
-                                idLavoura = cursorId.getInt(idColumnIndex);
-                        }
-                    } finally {
-                        cursorId.close();
-                    }
-                }
+                idLavoura = getId(cursorId);
 
                 //autoComplete talhao
                 autoCompTextViewTalhao = findViewById(R.id.ac_textView_talhao);
@@ -89,6 +93,15 @@ public class AdicionarColheitaActivity extends AppCompatActivity {
                 List<String> itemTalhao = nomesTalhao;
                 adapterItems = new ArrayAdapter<>(AdicionarColheitaActivity.this, R.layout.list_item, itemTalhao);
                 autoCompTextViewTalhao.setAdapter(adapterItems);
+                autoCompTextViewTalhao.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        nomeTalhao = adapterView.getItemAtPosition(i).toString();
+
+                        Cursor cursorId = mTalhaoDb.queryIdTalhao(nomeTalhao);
+                        idTalhao = getId(cursorId);
+                    }
+                });
             }
         });
 
@@ -111,5 +124,51 @@ public class AdicionarColheitaActivity extends AppCompatActivity {
         List<String> itemPanhador = nomesPanhadores;
         adapterItems = new ArrayAdapter<>(this, R.layout.list_item, itemPanhador);
         autCompTextViewPanhador.setAdapter(adapterItems);
+        autCompTextViewPanhador.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                nomePanhador = adapterView.getItemAtPosition(i).toString();
+
+                Cursor cursorId = mPanhadorDb.queryIdPanhador(nomePanhador);
+                idPanhador = getId(cursorId);
+            }
+        });
+
+        mBotaoAddColheita = (Button) findViewById(R.id.botao_add_colheita);
+        mBotaoAddColheita.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dataHoraAtual = LocalDateTime.now();
+                formatador = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+                String data = dataHoraAtual.format(formatador);
+
+                inputQntd = (EditText) findViewById(R.id.input_qtd);
+                double qntd = Double.parseDouble(inputQntd.getText().toString());
+
+                adicionarColheita(idLavoura, idTalhao, idPanhador, qntd, data);
+                finish();
+            }
+        });
+    }
+
+    private int getId(Cursor cursorId){
+        int id = -1;
+        if(cursorId != null){
+            try{
+                if(cursorId.moveToFirst()){
+                    int idColumnIndex = cursorId.getColumnIndex("_id");
+                    if(idColumnIndex != -1)
+                        id = cursorId.getInt(idColumnIndex);
+                }
+            } finally {
+                cursorId.close();
+            }
+        }
+        return id;
+    }
+
+    private void adicionarColheita(int idLavoura, int idTalhao, int idPanhador, double qntd, String data){
+        mColheitaDb = new ColheitaDB(this);
+        mColheitaDb.addColheita(idLavoura, idTalhao, idPanhador, qntd, data);
     }
 }

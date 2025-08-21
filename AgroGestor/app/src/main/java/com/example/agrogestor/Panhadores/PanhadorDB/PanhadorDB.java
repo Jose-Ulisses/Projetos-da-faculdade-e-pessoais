@@ -4,6 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
+import com.example.agrogestor.Talhao.TalhaoDB.TalhaoDbSchema;
 
 public class PanhadorDB {
     private Context mContext;
@@ -36,4 +39,27 @@ public class PanhadorDB {
         );
         return cursor;
     }
+
+    public Cursor queryIdPanhador(String nomePanhador){
+        String[] projection = { PanhadorDbSchema.PanhadorTbl.Cols.ID_PANHADOR};
+        String selection = PanhadorDbSchema.PanhadorTbl.Cols.NOME_PANHADOR + " = ?";
+        String[] selectionArgs = { nomePanhador };
+        Cursor cursorID = null;
+        try{
+            cursorID = mDatabase.query(
+                    PanhadorDbSchema.PanhadorTbl.NOME_TBL,
+                    projection,
+                    selection,
+                    selectionArgs,
+                    null,
+                    null,
+                    null
+            );
+        } catch (Exception e){
+            Log.e("PanhadorDB", "Erro!");
+            return null;
+        }
+        return cursorID;
+    }
+
 }

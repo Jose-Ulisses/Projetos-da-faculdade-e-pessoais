@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class TalhaoDB {
     private Context mContext;
@@ -36,6 +37,29 @@ public class TalhaoDB {
         );
         return cursor;
     }
+
+    public Cursor queryIdTalhao(String nomeTalhao){
+        String[] projection = { TalhaoDbSchema.TalhoesTbl.Cols.ID_TALHAO};
+        String selection = TalhaoDbSchema.TalhoesTbl.Cols.NOME_TALHAO + " = ?";
+        String[] selectionArgs = { nomeTalhao };
+        Cursor cursorID = null;
+        try{
+            cursorID = mDatabase.query(
+                    TalhaoDbSchema.TalhoesTbl.NOME_TBL,
+                    projection,
+                    selection,
+                    selectionArgs,
+                    null,
+                    null,
+                    null
+            );
+        } catch (Exception e){
+            Log.e("TalhaoDB", "Erro!");
+            return null;
+        }
+        return cursorID;
+    }
+
 
     public void deleteTbl(){
         int delete;
