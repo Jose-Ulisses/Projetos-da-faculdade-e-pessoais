@@ -7,12 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.agrogestor.Lavouras.LavourasDB.LavouraDB;
 import com.example.agrogestor.R;
-import com.example.agrogestor.Talhao.AddTalhaoActivity;
 
 public class TodasLavourasActivity extends AppCompatActivity {
     LavouraDB mLavouraDb;

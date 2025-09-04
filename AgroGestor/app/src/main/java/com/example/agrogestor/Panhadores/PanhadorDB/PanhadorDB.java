@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.example.agrogestor.Lavouras.LavourasDB.LavourasDbSchema;
+
 public class PanhadorDB {
     private final SQLiteDatabase mDatabase;
 
@@ -58,5 +60,37 @@ public class PanhadorDB {
         }
         return cursorID;
     }
+
+    public String queryNomePanhador(int idPanhador){
+        String[] projection = { PanhadorDbSchema.PanhadorTbl.Cols.NOME_PANHADOR};
+        String selection = PanhadorDbSchema.PanhadorTbl.Cols.ID_PANHADOR + " = ?";
+        String[] selectionArgs = { String.valueOf(idPanhador) };
+        String nomePanhador;
+
+        Cursor cursorID = null;
+        try{
+            cursorID = mDatabase.query(
+                    PanhadorDbSchema.PanhadorTbl.NOME_TBL,
+                    projection,
+                    selection,
+                    selectionArgs,
+                    null,
+                    null,
+                    null
+            );
+
+            if (cursorID != null && cursorID.moveToFirst()) {
+                int columnIndex = cursorID.getColumnIndexOrThrow(PanhadorDbSchema.PanhadorTbl.Cols.NOME_PANHADOR);
+                nomePanhador = cursorID.getString(columnIndex);
+                return nomePanhador;
+            }
+
+        } catch (Exception e){
+            Log.e("LavouraDB", "Erro queryNomeLavoura!");
+            cursorID.close();
+        }
+        return null;
+    }
+
 
 }

@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.example.agrogestor.Lavouras.LavourasDB.LavourasDbSchema;
+
 public class TalhaoDB {
     private Context mContext;
     private SQLiteDatabase mDatabase;
@@ -58,6 +60,38 @@ public class TalhaoDB {
             return null;
         }
         return cursorID;
+    }
+
+    public String queryNomeTalhao(int idTalhao){
+        String[] projection = { TalhaoDbSchema.TalhoesTbl.Cols.NOME_TALHAO};
+        String selection = TalhaoDbSchema.TalhoesTbl.Cols.ID_TALHAO + " = ?";
+        String[] selectionArgs = { String.valueOf(idTalhao) };
+        String nomeTalhao;
+
+        Cursor cursorID = null;
+        try{
+            cursorID = mDatabase.query(
+                    TalhaoDbSchema.TalhoesTbl.NOME_TBL,
+                    projection,
+                    selection,
+                    selectionArgs,
+                    null,
+                    null,
+                    null
+            );
+
+            if (cursorID != null && cursorID.moveToFirst()) {
+                int columnIndex = cursorID.getColumnIndexOrThrow(TalhaoDbSchema.TalhoesTbl.Cols.NOME_TALHAO);
+                nomeTalhao = cursorID.getString(columnIndex);
+                return nomeTalhao;
+            }
+
+        } catch (Exception e){
+            Log.e("LavouraDB", "Erro queryNomeLavoura!");
+            cursorID.close();
+
+        }
+        return null;
     }
 
 

@@ -59,6 +59,38 @@ public class LavouraDB {
         return cursorID;
     }
 
+    public String queryNomeLavoura(int idLavoura){
+        String[] projection = { LavourasDbSchema.LavourasTbl.Cols.NOME_LAVOURA};
+        String selection = LavourasDbSchema.LavourasTbl.Cols.ID_LAVOURA + " = ?";
+        String[] selectionArgs = { String.valueOf(idLavoura) };
+        String nomeLavoura;
+
+        Cursor cursorID = null;
+        try{
+            cursorID = mDatabase.query(
+                    LavourasDbSchema.LavourasTbl.NOME_TBL,
+                    projection,
+                    selection,
+                    selectionArgs,
+                    null,
+                    null,
+                    null
+            );
+
+            if (cursorID != null && cursorID.moveToFirst()) {
+                int columnIndex = cursorID.getColumnIndexOrThrow(LavourasDbSchema.LavourasTbl.Cols.NOME_LAVOURA);
+                nomeLavoura = cursorID.getString(columnIndex);
+                return nomeLavoura;
+            }
+
+        } catch (Exception e){
+            Log.e("LavouraDB", "Erro queryNomeLavoura!");
+            cursorID.close();
+
+        }
+        return null;
+    }
+
     void deleteTbl(){
         int delete;
         delete = mDatabase.delete(LavourasDbSchema.LavourasTbl.NOME_TBL, null, null);
